@@ -1,8 +1,0 @@
-# Folders
-/vendor
-/.github
-/.wordpress-org
-
-# Files
-composer.lock
-.phpcs.xml.dist
