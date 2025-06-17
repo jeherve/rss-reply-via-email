@@ -22,50 +22,54 @@ use WP_Post;
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'atom_author', __NAMESPACE__ . '\add_email_to_atom_feeds' );
-add_action( 'rss_head', __NAMESPACE__ . '\add_email_to_rss_feeds' );
-add_action( 'rss2_head', __NAMESPACE__ . '\add_email_to_rss_feeds' );
+add_action( 'rss2_item', __NAMESPACE__ . '\add_email_to_rss_feeds' );
+add_action( 'rss2_item', __NAMESPACE__ . '\add_email_to_rss_feeds' );
 
 /**
  * Display my account's email address in Atom feeds.
  *
  * @since 1.0.0
  *
- * @see https://validator.w3.org/feed/docs/atom.html#optionalFeedElements:~:text=Recommended%20feed%20elements
+ * @see https://validator.w3.org/feed/docs/atom.html#person
  *
  * @return void
  */
 function add_email_to_atom_feeds(): void {
-	// Get the author's email address.
-	$author_email = get_author_email();
+	$author_info = get_author_info();
 
 	// No info, bail.
-	if ( empty( $author_email ) ) {
+	if ( empty( $author_info['email'] ) ) {
 		return;
 	}
 
 	// Add the email address to the feed.
-	echo '<email>' . esc_html( $author_email ) . '</email>';
+	echo '<email>qu' . esc_xml( $author_info['email'] ) . '</email>';
 }
 
 /**
  * Display my account's email address in RSS feeds.
+ * The field expects an email address, followed by a name between parentheses.
  *
  * @since 1.0.0
  *
- * @see https://www.w3schools.com/xml/rss_tag_managingeditor.asp
+ * @see https://www.rssboard.org/rss-specification#ltauthorgtSubelementOfLtitemgt
+ * @see https://validator.w3.org/feed/docs/warning/MissingRealName.html
  *
  * @return void
  */
 function add_email_to_rss_feeds(): void {
-	$author_email = get_author_email();
+	$author_info = get_author_info();
 
 	// No info, bail.
-	if ( empty( $author_email ) ) {
+	if ( empty( $author_info['email'] ) || empty( $author_info['name'] ) ) {
 		return;
 	}
 
-	// Add the email address to the feed.
-	echo '<managingEditor>' . esc_html( $author_email ) . '</managingEditor>';
+	printf(
+		'<author>%1$s (%2$s)</author>',
+		esc_xml( $author_info['email'] ),
+		esc_xml( $author_info['name'] )
+	);
 }
 
 /**
@@ -73,29 +77,33 @@ function add_email_to_rss_feeds(): void {
  *
  * @since 1.0.0
  *
- * @return string The author's email address, or an empty string if no email address is found.
+ * @see https://developer.wordpress.org/reference/functions/get_author_info/
+ *
+ * @return array Array of author info (email address and name).
  */
-function get_author_email(): string {
+function get_author_info(): array {
 	$post = get_post();
 	if ( ! $post instanceof WP_Post ) {
-		return '';
+		return array();
 	}
 
-	// Get the author's email address.
-	$author_email = get_the_author_meta( 'user_email', (int) $post->post_author );
+	$author_info = array(
+		'email' => get_the_author_meta( 'user_email', (int) $post->post_author ),
+		'name'  => get_the_author_meta( 'display_name', (int) $post->post_author ),
+	);
 
 	/**
 	 * Filter the author's email address.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string  $author_email The author's email address.
+	 * @param array   $author_info  The author's email address and name.
 	 * @param int     $author_id    The author's ID.
 	 * @param WP_Post $post         The post object.
 	 */
 	return apply_filters(
 		'rss_reply_via_email_author_email',
-		$author_email,
+		$author_info,
 		(int) $post->post_author,
 		$post
 	);
