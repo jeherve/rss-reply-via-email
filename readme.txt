@@ -45,6 +45,6 @@ add_filter( 'rss_reply_via_email_author_info', function( $author_info, $author_i
 == Changelog ==
 
 ### [1.0.0] - 2025-06-17
-### Added
+#### Added
 * Initial public release.
 
