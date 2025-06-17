@@ -18,6 +18,7 @@ declare( strict_types = 1 );
 namespace Jeherve\RSSReplyViaEmail;
 
 use WP_Post;
+use WP_User;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -87,9 +88,14 @@ function get_author_info(): array {
 		return array();
 	}
 
+	$user_info = get_user_by( 'id', (int) $post->post_author );
+	if ( ! $user_info instanceof WP_User ) {
+		return array();
+	}
+
 	$author_info = array(
-		'email' => get_the_author_meta( 'user_email', (int) $post->post_author ),
-		'name'  => get_the_author_meta( 'display_name', (int) $post->post_author ),
+		'email' => $user_info->user_email,
+		'name'  => $user_info->display_name,
 	);
 
 	/**
