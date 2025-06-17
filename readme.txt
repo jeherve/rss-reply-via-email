@@ -32,8 +32,9 @@ The plugin uses each author's email address, as defined for each account under t
 If you do not want to use the account's email address, you can set a custom email address thanks to the `jeherve_rss_reply_via_email_address` filter:
 
 ```php
-add_filter( 'rss_reply_via_email_author_email', function( $author_email, $author_id, $post ) {
-	return 'your@email.com';
+add_filter( 'rss_reply_via_email_author_info', function( $author_info, $author_id, $post ) {
+	$author_info['email'] = 'your@email.com';
+	return $author_info;
 }, 10, 3 );
 ```
 

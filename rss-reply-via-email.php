@@ -109,7 +109,7 @@ function get_author_info(): array {
 	 * @param WP_Post $post         The post object.
 	 */
 	return apply_filters(
-		'rss_reply_via_email_author_email',
+		'rss_reply_via_email_author_info',
 		$author_info,
 		(int) $post->post_author,
 		$post
