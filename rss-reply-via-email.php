@@ -5,7 +5,7 @@
  * Description: Add a reply-to email address for each post in your RSS feeds.
  * Author: Jeremy Herve
  * Author URI: https://herve.bzh/
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: GPL2+
  * Requires at least: 6.8
  * Requires PHP: 8.1

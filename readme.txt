@@ -1,7 +1,7 @@
 === RSS Reply via email ===
 Contributors: jeherve
 Tags: widget, on this day
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires at least: 6.8
 Requires PHP: 8.1
 Tested up to: 6.8
@@ -43,6 +43,11 @@ add_filter( 'rss_reply_via_email_author_info', function( $author_info, $author_i
 1. RSS Reader example
 
 == Changelog ==
+
+### [1.0.1] - XXXX-XX-XX
+#### Fixed
+* Remove duplicated hook
+* Remove text prepended to email address
 
 ### [1.0.0] - 2025-06-17
 #### Added
