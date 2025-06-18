@@ -45,7 +45,7 @@ function add_email_to_atom_feeds(): void {
 	}
 
 	// Add the email address to the feed.
-	echo '<email>qu' . esc_xml( $author_info['email'] ) . '</email>';
+	echo '<email>' . esc_xml( $author_info['email'] ) . '</email>';
 }
 
 /**
