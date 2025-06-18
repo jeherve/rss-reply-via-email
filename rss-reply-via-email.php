@@ -24,7 +24,7 @@ use WP_User;
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'atom_author', __NAMESPACE__ . '\add_email_to_atom_feeds' );
-add_action( 'rss2_item', __NAMESPACE__ . '\add_email_to_rss_feeds' );
+add_action( 'rss_item', __NAMESPACE__ . '\add_email_to_rss_feeds' );
 add_action( 'rss2_item', __NAMESPACE__ . '\add_email_to_rss_feeds' );
 
 /**
