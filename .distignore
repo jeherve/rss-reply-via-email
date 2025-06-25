@@ -5,5 +5,7 @@
 /.git
 
 # Files
+.gitignore
+.distignore
 composer.lock
 .phpcs.xml.dist
