@@ -2,6 +2,7 @@
 /vendor
 /.github
 /.wordpress-org
+/.git
 
 # Files
 composer.lock
