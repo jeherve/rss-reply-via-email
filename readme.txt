@@ -44,7 +44,7 @@ add_filter( 'rss_reply_via_email_author_info', function( $author_info, $author_i
 
 == Changelog ==
 
-### [1.0.1] - XXXX-XX-XX
+### [1.0.1] - 2025-06-25
 #### Fixed
 * Remove duplicated hook
 * Remove text prepended to email address
